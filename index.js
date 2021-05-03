@@ -4,8 +4,13 @@ const app = express()
 
 app.use(express.json())
 
+// Define token
+morgan.token('type', function (req, res) {
+  if(req.method == 'POST') return JSON.stringify(req.body)
+})
+
 // setup the logger
-app.use(morgan('tiny'))
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :type'))
 
 let persons = [
     {
