@@ -63,12 +63,35 @@ const generateId = () => {
 
 app.post('/api/persons', (request, response) => {
   const body = request.body
-  console.log(body)
-  if (!body.name) {
+
+  if (!body.name || !body.number) {
     return response.status(400).json({
       error: 'content missing'
     })
   }
+
+  // Check if name already exists
+  const nameExists = persons.find(person => {
+    return (person.name === body.name)
+  })
+
+  if (nameExists) {
+    return response.status(400).json({
+      error: 'name must be unique'
+    })
+  }
+
+  // Check if number already exists
+  const numberExists = persons.find(person => {
+    return (person.number === body.number)
+  })
+
+  if (numberExists) {
+    return response.status(400).json({
+      error: 'number must be unique'
+    })
+  }
+
 
   const person = {
     name: body.name,
