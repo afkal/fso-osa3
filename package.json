@@ -1,0 +1,27 @@
+{
+  "name": "fso-osa3",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "\"echo \\\"Tests missing...\\\" && exit 1\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/afkal/fso-osa3.git"
+  },
+  "author": "Timo Laitila",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/afkal/fso-osa3/issues"
+  },
+  "homepage": "https://github.com/afkal/fso-osa3#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
