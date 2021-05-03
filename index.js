@@ -28,6 +28,17 @@ app.get('/', (req, res) => {
   res.send('<h1>Hello World!</h1>')
 })
 
+app.get('/info', (req, res) => {
+  let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZoneName: 'long'};
+  options.timeZone = 'EET';
+  options.timeZoneName = 'long';
+  let event = new Date().toLocaleString('en-US', options)
+  res.send(
+    `<p>Phonebook has in for ${persons.length} people</p>
+    <p>${event}</p>`
+  )
+})
+
 app.get('/api/persons', (req, res) => {
   res.json(persons)
 })
