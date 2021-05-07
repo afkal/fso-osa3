@@ -17,21 +17,32 @@ morgan.token('type', function (req, res) {
 // setup the logger
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :type'))
 
-app.get('/info', (req, res) => {
+app.get('/info', (request, response, next) => {
   let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZoneName: 'long'};
   options.timeZone = 'EET';
   options.timeZoneName = 'long';
   let event = new Date().toLocaleString('en-US', options)
+  Person.find({}).then(persons => {
+    response.send(
+      `<p>Phonebook has info for ${persons.length} people</p>
+      <p>${event}</p>`
+    )
+    //response.send("Jihaa")
+  })
+  .catch(error => next(error))
+  /*
   res.send(
-    `<p>Phonebook has in for ${Person.length} people</p>
+    `<p>Phonebook has info for ${Person.length} people</p>
     <p>${event}</p>`
   )
+  */
 })
 
-app.get('/api/persons', (request, response) => {
+app.get('/api/persons', (request, response, next) => {
   Person.find({}).then(persons => {
     response.json(persons)
   })
+  .catch(error => next(error))
 })
 
 app.get('/api/persons/:id', (request, response, next) => {
