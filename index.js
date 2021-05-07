@@ -128,7 +128,6 @@ const errorHandler = (error, request, response, next) => {
   next(error)
 }
 
-// tämä tulee kaikkien muiden middlewarejen rekisteröinnin jälkeen!
 app.use(errorHandler)
 
 const PORT = process.env.PORT || 3001
