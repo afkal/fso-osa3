@@ -10,17 +10,17 @@ app.use(express.json())
 app.use(express.static('build'))
 
 // Define token
-morgan.token('type', function (req, res) {
-  if(req.method == 'POST') return JSON.stringify(req.body)
+morgan.token('type', function (request) {
+  if(request.method === 'POST') return JSON.stringify(request.body)
 })
 
 // setup the logger
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :type'))
 
 app.get('/info', (request, response, next) => {
-  let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZoneName: 'long'};
-  options.timeZone = 'EET';
-  options.timeZoneName = 'long';
+  let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZoneName: 'long' }
+  options.timeZone = 'EET'
+  options.timeZoneName = 'long'
   let event = new Date().toLocaleString('en-US', options)
   Person.find({}).then(persons => {
     response.send(
@@ -28,7 +28,7 @@ app.get('/info', (request, response, next) => {
       <p>${event}</p>`
     )
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
   /*
   res.send(
     `<p>Phonebook has info for ${Person.length} people</p>
@@ -41,7 +41,7 @@ app.get('/api/persons', (request, response, next) => {
   Person.find({}).then(persons => {
     response.json(persons)
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
 })
 
 app.get('/api/persons/:id', (request, response, next) => {
@@ -52,8 +52,8 @@ app.get('/api/persons/:id', (request, response, next) => {
       } else {
         response.status(404).end()
       }
-  })
-  .catch(error => next(error))
+    })
+    .catch(error => next(error))
 })
 
 app.post('/api/persons', (request, response, next) => {
@@ -99,13 +99,13 @@ app.post('/api/persons', (request, response, next) => {
   person.save().then(savedPerson => {
     response.json(savedPerson)
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
 
 })
 
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
-    .then(result => {
+    .then(() => {
       response.status(204).end()
     })
     .catch(error => next(error))
