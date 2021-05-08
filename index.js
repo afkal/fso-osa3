@@ -27,7 +27,6 @@ app.get('/info', (request, response, next) => {
       `<p>Phonebook has info for ${persons.length} people</p>
       <p>${event}</p>`
     )
-    //response.send("Jihaa")
   })
   .catch(error => next(error))
   /*
